@@ -1,0 +1,26 @@
+####  Authenticate ###
+/post/auth/register 
+request body
+{
+    firstName           string  user first name
+    lastName            string  user last name
+    email               string  email
+    phoneNumber         string  phoneNumber
+    password            string  password
+    confirmPassword     string confirmPassword is match password
+}
+response
+201
+{
+    accessToken     string      user token
+    user            object      user object without password
+}
+400
+{
+    message         string      client error message
+    code            string      email exist  mobile exist
+}
+500
+{
+    message         string  server error message
+}

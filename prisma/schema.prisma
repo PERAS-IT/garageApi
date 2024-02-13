@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum brand {
+  other
+  toyota
+  honda
+  suzuki
+  mazda
+  mitsubishi
+  byd
+  tesla
+  lumbogini
+}
+
+model admin {
+  id       Int     @id @default(autoincrement())
+  userName String  @map("user_name")
+  password String
+  order    order[]
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  firstName   String    @map("first_name")
+  lasetName   String    @map("last_name")
+  email       String    @unique
+  phoneNumber String    @unique @map("phone_number")
+  createdAt   DateTime  @default(now()) @map("create_at") @db.Timestamp(0)
+  vehicles    vehicle[]
+
+  @@map("users")
+}
+
+model vehicle {
+  id           Int      @id @default(autoincrement())
+  User         User     @relation(fields: [userId], references: [id])
+  userId       Int
+  brand        brand    @default(other)
+  model        String?
+  year         String?
+  licensePlate String?  @map("license_plate")
+  image        String?
+  createdAt    DateTime @map("created_at") @db.Timestamp(0)
+  deletedAt    DateTime @map("deleted_at") @db.Timestamp(0)
+  orders       order[]
+}
+
+enum catagoryService {
+  general
+  accident
+}
+
+enum statusOrder {
+  pending
+  reject
+  inService
+  waitingReceive
+  complate
+}
+
+model order {
+  id              Int             @id @default(autoincrement())
+  vehicle         vehicle         @relation(fields: [vehicleId], references: [id])
+  vehicleId       Int
+  categoryService catagoryService @default(general) @map("category_service")
+  statusOrder     statusOrder     @default(pending)
+  createdAt       DateTime        @default(now()) @map("create_at") @db.Timestamp(0)
+  mileStoneNumber Int             @default(0) @map("mile_stone_number")
+  detailRequest   String?         @map("detail_request")
+  approveAt       DateTime?       @map("approve_at")
+  completeAt      DateTime?       @map("complete_at")
+  admin           admin?          @relation(fields: [adminId], references: [id])
+  adminId         Int?
+}
+
+// enum billStatus {
+//   pending
+//   complate
+// }
+
+// model billing {
+//   id          Int        @id @default(autoincrement())
+//   order       order?     @relation(fields: [orderId], references: [id])
+//   orderId     Int?
+//   billStatus  billStatus
+//   totalAmount Int        @default(0)
+//   createdAt   DateTime   @default(now()) @map("create_at") @db.Timestamp(0)
+//   paymentAt   DateTime   @map("payment_at") @db.Timestamp(0)
+// }
