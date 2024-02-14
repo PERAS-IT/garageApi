@@ -1,5 +1,6 @@
 const hashService = require("../service/hash-service");
 const userService = require("../service/user-service");
+const adminService = require("../service/admin-service");
 const createError = require("../utility/create-error");
 const jwtService = require("../service/jwt-service");
 const catchError = require("../utility/catch-error");
@@ -28,6 +29,17 @@ exports.registerController = catchError(async (req, res, next) => {
   res.status(201).json({ accessToken, newUser });
 });
 
+exports.registerAdminController = catchError(async (req, res, next) => {
+  console.log(req.body);
+  const existAdmin = await adminService.findAdminByUserName(req.body.userName);
+  if (existAdmin) {
+    createError("Admin in use", 400);
+  }
+  req.body.password = await hashService.hash(req.body.password);
+  await adminService.createAdmin(req.body);
+  res.status(200).json({ message: "create Admin success" });
+});
+
 exports.loginController = catchError(async (req, res, next) => {
   const existUser = await userService.findUserByEmailOrPhoneNumber(
     req.body.emailOrPhoneNumber
@@ -46,4 +58,24 @@ exports.loginController = catchError(async (req, res, next) => {
   const accessToken = jwtService.sign(payload);
   delete existUser.password;
   res.status(200).json({ accessToken, user: existUser });
+});
+
+exports.loginAdminController = catchError(async (req, res, next) => {
+  const existAdmin = await adminService.findAdminByUserName(
+    req.body.emailOrPhoneNumber
+  );
+  if (!existAdmin) {
+    createError("invalid credential", 400);
+  }
+  const isMatchPass = await hashService.compare(
+    req.body.password,
+    existAdmin.password
+  );
+  if (!isMatchPass) {
+    createError("invalid credential", 400);
+  }
+  const payload = { userId: existAdmin.id };
+  const accessToken = jwtService.sign(payload);
+  delete existAdmin.password;
+  res.status(200).json({ accessToken, user: existAdmin });
 });

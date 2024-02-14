@@ -32,6 +32,21 @@ const registerSchema = Joi.object({
     }),
 });
 
+const registerAdminSchema = Joi.object({
+  userName: Joi.string().required().messages({
+    "string.empty": "user name is required",
+    "any.require": "user name is required",
+  }),
+  password: Joi.string()
+    .pattern(/^[a-zA-z0-9]{6,}$/)
+    .required()
+    .messages({
+      "string.empty": "password is required",
+      "string.pattern.base":
+        "Password must be least 6 characters and contain only alphabet",
+    }),
+});
+
 const loginSchema = Joi.object({
   emailOrPhoneNumber: Joi.string().required().messages({
     "string.empty": "email or Phone Number is required",
@@ -44,4 +59,5 @@ const loginSchema = Joi.object({
 });
 
 exports.validateRegister = validate(registerSchema);
+exports.validateAdminRegister = validate(registerAdminSchema);
 exports.validateLogin = validate(loginSchema);
