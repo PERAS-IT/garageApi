@@ -1,7 +1,8 @@
-import validate from "./validator";
+const validate = require("./validator");
+
 const Joi = require("joi");
 
-export const registerSchema = Joi.object({
+const registerSchema = Joi.object({
   firstName: Joi.string().required().trim().messages({
     "string.empty": "First Name is required",
   }),
@@ -29,10 +30,6 @@ export const registerSchema = Joi.object({
       "string.pattern.base":
         "Password must be least 6 characters and contain only alphabet",
     }),
-  confirmPassword: Joi.string().valid(Joi.ref("password")).required().messages({
-    "string.empty": "confirm Password is required",
-    "any.only": "confirmPassword must be same password",
-  }),
 });
 
-export const validateRegister = validate(registerSchema);
+exports.validateRegister = validate(registerSchema);

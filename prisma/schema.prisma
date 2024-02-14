@@ -32,8 +32,9 @@ model admin {
 model User {
   id          Int       @id @default(autoincrement())
   firstName   String    @map("first_name")
-  lasetName   String    @map("last_name")
+  lastName    String    @map("last_name")
   email       String    @unique
+  password    String
   phoneNumber String    @unique @map("phone_number")
   createdAt   DateTime  @default(now()) @map("create_at") @db.Timestamp(0)
   vehicles    vehicle[]

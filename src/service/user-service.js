@@ -1,7 +1,7 @@
 const prisma = require("../model/prisma");
 
 exports.findUserByEmail = (email) => {
-  prisma.user.findFirst({
+  return prisma.user.findUnique({
     where: {
       email: email,
     },
@@ -9,11 +9,11 @@ exports.findUserByEmail = (email) => {
 };
 
 exports.findUserByPhoneNumber = (phoneNumber) => {
-  prisma.user.findFirst({
+  return prisma.user.findUnique({
     where: {
       phoneNumber: phoneNumber,
     },
   });
 };
 
-exports.createUser = (user) => prisma.user.create({ user });
+exports.createUser = (data) => prisma.user.create({ data });
