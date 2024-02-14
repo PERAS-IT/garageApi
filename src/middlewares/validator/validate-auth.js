@@ -26,10 +26,22 @@ const registerSchema = Joi.object({
     .pattern(/^[a-zA-Z0-9]{6,}$/)
     .required()
     .messages({
-      "string.empty": "Pass is required",
+      "string.empty": "password is required",
       "string.pattern.base":
         "Password must be least 6 characters and contain only alphabet",
     }),
 });
 
+const loginSchema = Joi.object({
+  emailOrPhoneNumber: Joi.string().required().messages({
+    "string.empty": "email or Phone Number is required",
+    "any.required": "email or Phone Number is required",
+  }),
+  password: Joi.string().required().messages({
+    "string.empty": "password is required",
+    "any.required": "password is required",
+  }),
+});
+
 exports.validateRegister = validate(registerSchema);
+exports.validateLogin = validate(loginSchema);
