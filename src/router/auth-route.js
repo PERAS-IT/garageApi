@@ -3,6 +3,7 @@ const {
   validateRegister,
   validateLogin,
   validateAdminRegister,
+  validateLoginAdmin,
 } = require("../middlewares/validator/validate-auth");
 const {
   registerController,
@@ -20,5 +21,5 @@ authRouter.post(
   registerAdminController
 );
 authRouter.post("/login", validateLogin, loginController);
-authRouter.post("/login/admin", validateLogin, loginAdminController);
+authRouter.post("/login/admin", validateLoginAdmin, loginAdminController);
 module.exports = authRouter;

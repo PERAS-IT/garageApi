@@ -8,6 +8,14 @@ exports.findAdminByUserName = (userName) => {
   });
 };
 
+exports.findAdminById = (id) => {
+  return prisma.admin.findFirst({
+    where: {
+      id,
+    },
+  });
+};
+
 exports.createAdmin = (data) => {
   return prisma.admin.create({ data });
 };

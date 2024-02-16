@@ -43,17 +43,18 @@ model User {
 }
 
 model vehicle {
-  id           Int      @id @default(autoincrement())
-  User         User     @relation(fields: [userId], references: [id])
-  userId       Int
-  brand        brand    @default(other)
-  model        String?
-  year         String?
-  licensePlate String?  @map("license_plate")
-  image        String?
-  createdAt    DateTime @map("created_at") @db.Timestamp(0)
-  deletedAt    DateTime @map("deleted_at") @db.Timestamp(0)
-  orders       order[]
+  id          Int       @id @default(autoincrement())
+  User        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  brand       brand     @default(other)
+  model       String?
+  year        String?
+  plateNumber String?   @map("plate_number")
+  province    String?
+  image       String?
+  createdAt   DateTime  @default(now()) @map("create_at") @db.Timestamp(0)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamp(0)
+  orders      order[]
 }
 
 enum catagoryService {

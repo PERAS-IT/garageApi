@@ -16,6 +16,14 @@ exports.findUserByPhoneNumber = (phoneNumber) => {
   });
 };
 
+exports.findUserById = (id) => {
+  return prisma.user.findFirst({
+    where: {
+      id,
+    },
+  });
+};
+
 exports.createUser = (data) => prisma.user.create({ data });
 
 exports.findUserByEmailOrPhoneNumber = (emailOrPhoneNumber) => {

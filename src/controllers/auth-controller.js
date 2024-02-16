@@ -61,9 +61,7 @@ exports.loginController = catchError(async (req, res, next) => {
 });
 
 exports.loginAdminController = catchError(async (req, res, next) => {
-  const existAdmin = await adminService.findAdminByUserName(
-    req.body.emailOrPhoneNumber
-  );
+  const existAdmin = await adminService.findAdminByUserName(req.body.userName);
   if (!existAdmin) {
     createError("invalid credential", 400);
   }
