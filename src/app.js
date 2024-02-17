@@ -22,6 +22,7 @@ app.use("/public", express.static("public"));
 
 app.use("/auth", authRouter);
 app.use("/cars", authenticate, carsRouter);
+app.use("/service", authenticate);
 app.use("/admin", authenticateAdmin);
 
 app.use(notFound);
