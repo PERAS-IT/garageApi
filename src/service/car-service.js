@@ -31,4 +31,21 @@ exports.deleteByCarId = async (carId) => {
       deletedAt: new Date(),
     },
   });
+  return car;
+};
+
+exports.editCarByCarId = async (carId, data) => {
+  const car = prisma.vehicle.update({
+    where: {
+      id: carId,
+    },
+    data: {
+      model: data.model,
+      year: data.year,
+      brand: data.brand,
+      plateNumber: data.plateNumber,
+      province: data.province,
+    },
+  });
+  return car;
 };

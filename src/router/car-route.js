@@ -6,5 +6,6 @@ const carsRouter = express.Router();
 
 carsRouter.post("/", upload.single("image"), carController.createCar);
 carsRouter.get("/", authenticate, carController.getCarByUserId);
-carsRouter.patch("/:carId");
+carsRouter.patch("/:carId", carController.softDeleteCarByCarId);
+carsRouter.put("/:carId", carController.editCarByCarId);
 module.exports = carsRouter;

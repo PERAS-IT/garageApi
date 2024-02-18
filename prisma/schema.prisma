@@ -71,18 +71,19 @@ enum statusOrder {
 }
 
 model order {
-  id              Int             @id @default(autoincrement())
-  vehicle         vehicle         @relation(fields: [vehicleId], references: [id])
-  vehicleId       Int
-  categoryService catagoryService @default(general) @map("category_service")
-  statusOrder     statusOrder     @default(pending)
-  createdAt       DateTime        @default(now()) @map("create_at") @db.Timestamp(0)
-  mileStoneNumber Int             @default(0) @map("mile_stone_number")
-  detailRequest   String?         @map("detail_request")
-  approveAt       DateTime?       @map("approve_at")
-  completeAt      DateTime?       @map("complete_at")
-  admin           admin?          @relation(fields: [adminId], references: [id])
-  adminId         Int?
+  id                Int             @id @default(autoincrement())
+  vehicle           vehicle         @relation(fields: [vehicleId], references: [id])
+  vehicleId         Int
+  categoryService   catagoryService @default(general) @map("category_service")
+  statusOrder       statusOrder     @default(pending)
+  createdAt         DateTime        @default(now()) @map("create_at") @db.Timestamp(0)
+  mileStoneNumber   Int             @default(0) @map("mile_stone_number")
+  detailRequest     String?         @map("detail_request")
+  approveAt         DateTime?       @map("approve_at")
+  serviceCompleteAt DateTime?       @map("service_at")
+  completeAt        DateTime?       @map("complete_at")
+  admin             admin?          @relation(fields: [adminId], references: [id])
+  adminId           Int?
 }
 
 // enum billStatus {

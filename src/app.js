@@ -10,6 +10,7 @@ const authRouter = require("./router/auth-route");
 const authenticate = require("./middlewares/authenticate");
 const authenticateAdmin = require("./middlewares/authenticateAdmin");
 const carsRouter = require("./router/car-route");
+const routerService = require("./router/service-route");
 
 const PORT = process.env.PORT;
 const app = express();
@@ -22,7 +23,7 @@ app.use("/public", express.static("public"));
 
 app.use("/auth", authRouter);
 app.use("/cars", authenticate, carsRouter);
-app.use("/service", authenticate);
+app.use("/service", authenticate, routerService);
 app.use("/admin", authenticateAdmin);
 
 app.use(notFound);
