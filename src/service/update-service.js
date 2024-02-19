@@ -1,7 +1,7 @@
 const prisma = require("../model/prisma");
 
 exports.updateReceive = async (carId, adminId) => {
-  await prisma.order.update({
+  const result = await prisma.order.update({
     where: {
       id: carId,
     },
@@ -11,16 +11,31 @@ exports.updateReceive = async (carId, adminId) => {
       statusOrder: "In Service",
     },
   });
+  return result;
 };
 
-exports.updateServiceComplete = async (carId, adminId) => {
-  await prisma.order.update({
+exports.updateServiceComplete = async (orderId, adminId) => {
+  const result = await prisma.order.update({
     where: {
-      id: carId,
+      id: orderId,
     },
     data: {
       adminId: adminId,
       statusOrder: "wait receive",
     },
   });
+  return result;
+};
+
+exports.updateComplete = async (orderId, adminId) => {
+  const result = await prisma.order.update({
+    where: {
+      id: orderId,
+    },
+    data: {
+      adminId: adminId,
+      statusOrder: "complete",
+    },
+  });
+  return result;
 };
