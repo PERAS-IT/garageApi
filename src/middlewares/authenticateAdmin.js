@@ -8,7 +8,7 @@ const authenticateAdmin = catchError(async (req, res, next) => {
   if (!authorization || !authorization.startsWith("Bearer ")) {
     createError("invalid authorization header", 401);
   }
-  const token = authenticate.split(" ")[1];
+  const token = authorization.split(" ")[1];
   const decodePayload = jwtService.verify(token);
 
   const admin = await adminService.findAdminById(decodePayload.userId);
@@ -17,6 +17,7 @@ const authenticateAdmin = catchError(async (req, res, next) => {
   }
   delete admin.password;
   req.admin = admin;
+  console.log(req.admin);
   next();
 });
 

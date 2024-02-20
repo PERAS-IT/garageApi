@@ -6,6 +6,10 @@ const routerService = express.Router();
 routerService.post("/:carId", serviceController.createServiceRequest);
 
 routerService.patch(
+  "/reject/:orderId",
+  serviceController.updateRejectController
+);
+routerService.patch(
   "/receive/:orderId",
   serviceController.updateReceiveController
 );

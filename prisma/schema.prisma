@@ -67,7 +67,7 @@ enum statusOrder {
   reject
   inService
   waitingReceive
-  complate
+  complete
 }
 
 model order {

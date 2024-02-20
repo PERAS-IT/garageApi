@@ -59,8 +59,8 @@ const loginSchema = Joi.object({
 });
 const loginAdminSchema = Joi.object({
   userName: Joi.string().required().messages({
-    "string.empty": "email or Phone Number is required",
-    "any.required": "email or Phone Number is required",
+    "string.empty": "user Name is required",
+    "any.required": "User Name is required",
   }),
   password: Joi.string().required().messages({
     "string.empty": "password is required",

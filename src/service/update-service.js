@@ -1,14 +1,28 @@
 const prisma = require("../model/prisma");
 
-exports.updateReceive = async (carId, adminId) => {
+exports.updateReject = async (orderId, adminId) => {
   const result = await prisma.order.update({
     where: {
-      id: carId,
+      id: orderId,
     },
     data: {
       adminId: adminId,
       approveAt: new Date(),
-      statusOrder: "In Service",
+      statusOrder: "reject",
+    },
+  });
+  return result;
+};
+
+exports.updateReceive = async (orderId, adminId) => {
+  const result = await prisma.order.update({
+    where: {
+      id: orderId,
+    },
+    data: {
+      adminId: adminId,
+      approveAt: new Date(),
+      statusOrder: "inService",
     },
   });
   return result;
@@ -21,7 +35,8 @@ exports.updateServiceComplete = async (orderId, adminId) => {
     },
     data: {
       adminId: adminId,
-      statusOrder: "wait receive",
+      serviceCompleteAt: new Date(),
+      statusOrder: "waitingReceive",
     },
   });
   return result;
@@ -34,6 +49,7 @@ exports.updateComplete = async (orderId, adminId) => {
     },
     data: {
       adminId: adminId,
+      completeAt: new Date(),
       statusOrder: "complete",
     },
   });
