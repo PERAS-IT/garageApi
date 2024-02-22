@@ -25,6 +25,8 @@ app.use("/auth", authRouter);
 app.use("/cars", authenticate, carsRouter);
 app.use("/service", authenticate, routerService);
 app.use("/admin", authenticateAdmin, routerService);
+// app.use("/update");
+// app.use("/history", authenticateAdmin);
 
 app.use(notFound);
 app.use(error);

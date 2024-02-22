@@ -3,6 +3,7 @@ const createError = require("../utility/create-error");
 const requestService = require("../service/request-service");
 const updateService = require("../service/update-service");
 const dataService = require("../service/data-service");
+const searchService = require("../service/search-service");
 
 exports.createServiceRequest = catchError(async (req, res, next) => {
   req.body.mileStoneNumber = +req.body.mileStoneNumber;
@@ -59,5 +60,12 @@ exports.getServiceSevenDayCtrl = catchError(async (req, res, next) => {
 });
 exports.getCompleteSevenDayCtrl = catchError(async (req, res, next) => {
   const result = await dataService.findDataSevenDayComplete();
+  res.status(200).json({ result });
+});
+
+exports.searchOrderCtrl = catchError(async (req, res, next) => {
+  console.log("____________", req.params);
+  const result = await searchService.searchOrderData(req.params);
+  // console.log(result, "Thissssssse");
   res.status(200).json({ result });
 });

@@ -1,4 +1,3 @@
-const { object } = require("joi");
 const prisma = require("../model/prisma");
 
 exports.findDataRequestAll = async () => {

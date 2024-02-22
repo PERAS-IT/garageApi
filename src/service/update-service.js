@@ -55,3 +55,19 @@ exports.updateComplete = async (orderId, adminId) => {
   });
   return result;
 };
+
+exports.editOrderByOrderId = async (orderId, data) => {
+  const result = await prisma.order.update({
+    where: {
+      id: orderId,
+    },
+    data: {
+      statusOrder: data.statusOrder,
+      detailRequest: data.detailRequest,
+      createdAt: data.createdAt,
+      approveAt: data.approveAt,
+      completeAt: data.completeAt,
+      serviceCompleteAt: data.serviceCompleteAt,
+    },
+  });
+};
