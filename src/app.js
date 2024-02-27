@@ -11,6 +11,8 @@ const authenticate = require("./middlewares/authenticate");
 const authenticateAdmin = require("./middlewares/authenticateAdmin");
 const carsRouter = require("./router/car-route");
 const routerService = require("./router/service-route");
+const historyRoute = require("./router/history-route");
+const adminRoute = require("./router/admin-route");
 
 const PORT = process.env.PORT;
 const app = express();
@@ -24,9 +26,8 @@ app.use("/public", express.static("public"));
 app.use("/auth", authRouter);
 app.use("/cars", authenticate, carsRouter);
 app.use("/service", authenticate, routerService);
-app.use("/admin", authenticateAdmin, routerService);
-// app.use("/update");
-// app.use("/history", authenticateAdmin);
+app.use("/admin", authenticateAdmin, adminRoute);
+app.use("/history", authenticateAdmin, historyRoute);
 
 app.use(notFound);
 app.use(error);

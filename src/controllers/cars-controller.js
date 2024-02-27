@@ -1,6 +1,7 @@
 const fs = require("fs/promises");
 const carService = require("../service/car-service");
 const uploadService = require("../service/upload-service");
+const historyService = require("../service/history-service");
 const catchError = require("../utility/catch-error");
 const { ok } = require("assert");
 
@@ -31,4 +32,8 @@ exports.editCarByCarId = catchError(async (req, res, next) => {
   console.log(data);
   const car = await carService.editCarByCarId(+req.params.carId, data);
   res.status(200).json({ car });
+});
+
+exports.checkCarHistory = catchError(async (req, res, next) => {
+  const carHistory = await historyService.checkHistory(+req.params.carId);
 });

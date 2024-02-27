@@ -84,16 +84,21 @@ model order {
   completeAt        DateTime?       @map("complete_at")
   admin             admin?          @relation(fields: [adminId], references: [id])
   adminId           Int?
-  // history           history[]
+  history           history[]
 }
 
-// model history {
-//   id            Int      @id @default(autoincrement())
-//   order         order?   @relation(fields: [orderId], references: [id])
-//   orderId       Int?
-//   detailService String?  @map("detail_service")
-//   createdAt     DateTime @default(now()) @map("create_at") @db.Timestamp(0)
-// }
+model history {
+  id                        Int      @id @default(autoincrement())
+  order                     order?   @relation(fields: [orderId], references: [id])
+  orderId                   Int?
+  engineService             String?  @map("engine_service")
+  fluidService              String?  @map("fluid_service")
+  bodyService               String?  @map("body_service")
+  electricalService         String?  @map("electrical_service")
+  breakService              String?  @map("break_service")
+  suspensionAndWheelService String?  @map("suspension_wheel_service")
+  createdAt                 DateTime @default(now()) @map("create_at") @db.Timestamp(0)
+}
 
 // enum billStatus {
 //   pending

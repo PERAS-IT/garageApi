@@ -57,6 +57,7 @@ exports.updateComplete = async (orderId, adminId) => {
 };
 
 exports.editOrderByOrderId = async (orderId, data) => {
+  console.log("++++++++++", data);
   const result = await prisma.order.update({
     where: {
       id: orderId,
@@ -64,10 +65,8 @@ exports.editOrderByOrderId = async (orderId, data) => {
     data: {
       statusOrder: data.statusOrder,
       detailRequest: data.detailRequest,
-      createdAt: data.createdAt,
-      approveAt: data.approveAt,
-      completeAt: data.completeAt,
-      serviceCompleteAt: data.serviceCompleteAt,
+      categoryService: data.categoryService,
     },
   });
+  return result;
 };

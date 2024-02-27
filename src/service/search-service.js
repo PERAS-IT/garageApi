@@ -1,6 +1,7 @@
 const prisma = require("../model/prisma");
 
 exports.searchOrderData = (data) => {
+  console.log(data);
   const startDate = new Date(data.startDate);
   const endDate = new Date(data.endDate);
   return prisma.order.findMany({

@@ -4,6 +4,7 @@ const jwtService = require("../service/jwt-service");
 const adminService = require("../service/admin-service");
 
 const authenticateAdmin = catchError(async (req, res, next) => {
+  console.log("+++++++++++++++", req.headers.authorization);
   const authorization = req.headers.authorization;
   if (!authorization || !authorization.startsWith("Bearer ")) {
     createError("invalid authorization header", 401);

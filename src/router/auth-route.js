@@ -10,7 +10,11 @@ const {
   loginController,
   loginAdminController,
   registerAdminController,
+  getMe,
+  getAdmin,
 } = require("../controllers/auth-controller");
+const authenticate = require("../middlewares/authenticate");
+const authenticateAdmin = require("../middlewares/authenticateAdmin");
 
 const authRouter = express.Router();
 
@@ -22,4 +26,6 @@ authRouter.post(
 );
 authRouter.post("/login", validateLogin, loginController);
 authRouter.post("/login/admin", validateLoginAdmin, loginAdminController);
+authRouter.get("/me", authenticate, getMe);
+authRouter.get("/admin", authenticateAdmin, getAdmin);
 module.exports = authRouter;

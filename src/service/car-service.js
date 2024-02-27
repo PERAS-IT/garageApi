@@ -10,8 +10,10 @@ exports.findCarByUserId = async (userId) => {
       userId: {
         in: [userId],
       },
+
       deletedAt: null,
     },
+
     orderBy: {
       createdAt: "desc",
     },
@@ -19,6 +21,15 @@ exports.findCarByUserId = async (userId) => {
       orders: true,
     },
   });
+  // if (cars.order.length != 0) {
+  //   let temp;
+  //   for (order of cars.order) {
+  //     if (order.statusOrder != "complete") {
+  //       temp = order;
+  //     }
+  //     console(order);
+  //   }
+  // }
   return cars;
 };
 

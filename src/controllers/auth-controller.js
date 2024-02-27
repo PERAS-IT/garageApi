@@ -77,3 +77,13 @@ exports.loginAdminController = catchError(async (req, res, next) => {
   delete existAdmin.password;
   res.status(200).json({ accessToken, user: existAdmin });
 });
+
+exports.getMe = (req, res, next) => {
+  console.log(req.user, req.admin);
+  // if (req.admin) res.status(200).json({ admin: req.admin });
+  if (req.user) res.status(200).json({ user: req.user });
+};
+
+exports.getAdmin = (req, res, next) => {
+  res.status(200).json({ admin: req.admin });
+};
